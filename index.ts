@@ -3,11 +3,11 @@ const main = async () => {
     const module = await import(`./day${dayNumber}`)
 
     if (module.Task1 !== undefined) {
-        console.log(module.Task1())
+        console.log("Task 1: ", module.Task1())
     }
 
     if (module.Task2 !== undefined) {
-        console.log(module.Task2())
+        console.log("Task 2: ", module.Task2())
     }
 }
 
