@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 
 const readInput = () => {
-    const data = readFileSync('day3/input.txt', 'utf8');
+    const data = readFileSync(`${__dirname}/input.txt`, 'utf8');
     return data.split('\n')
 }
 
@@ -21,8 +21,6 @@ const Task1 = () => {
         return matchingLetter.charCodeAt(0) - 96;
     })
     .reduce((acc, cur) => acc + cur, 0);
-
-
 }
 
 const Task2 = () => {

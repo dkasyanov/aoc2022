@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 
 const readInput = () => {
-    const data = readFileSync('day4/input.txt', 'utf8');
+    const data = readFileSync(`${__dirname}/input.txt`, 'utf8');
     return data.split('\n')
 }
 
