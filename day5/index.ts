@@ -31,7 +31,6 @@ const Task1 = () => {
     const input = readInput();
     const state = parseInitialState(input.slice(0, 8))
     const instructions = input.slice(10)
-    // console.log(instructions)
 
     instructions.forEach(line => {
         const match = line.match(/move ([0-9]+) from ([0-9]+) to ([0-9]+)/);
@@ -60,6 +59,7 @@ const Task2 = () => {
     })
     
     return Object.values(state).map(v => v[v.length - 1]).reduce((a,c) => a + c, '')
+    //GMPMLWNMG
 }
 
 export { Task1, Task2 }
