@@ -1,11 +1,3 @@
-import { readFileSync, stat } from "fs";
-import { transpileModule } from "typescript";
-
-const readInput = () => {
-  const data = readFileSync(`${__dirname}/input.txt`, "utf8");
-  return data.split("\n");
-};
-
 const parseInitialState = (input: string[]) => {
   const data = new Map<string, string[]>();
 
@@ -28,8 +20,7 @@ const parseInitialState = (input: string[]) => {
   return data;
 };
 
-const Task1 = () => {
-  const input = readInput();
+const Task1 = (input: string[]) => {
   const rawState = input.slice(0, input.indexOf(""));
   const instructions = input.slice(input.indexOf("") + 1, input.length);
 
@@ -49,8 +40,7 @@ const Task1 = () => {
   //WHTLRMZRC
 };
 
-const Task2 = () => {
-  const input = readInput();
+const Task2 = (input: string[]) => {
   const rawState = input.slice(0, input.indexOf(""));
   const instructions = input.slice(input.indexOf("") + 1, input.length);
 

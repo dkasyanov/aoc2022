@@ -1,48 +1,34 @@
-import { readFileSync } from 'fs';
+const Task1 = (input: string[]) => {
+  const aggregatedData = [0];
+  let idx = 0;
+  input.forEach((line) => {
+    if (line === "") {
+      idx++;
+      aggregatedData[idx] = 0;
+      return;
+    }
 
+    aggregatedData[idx] += parseInt(line);
+  });
 
-const readInput = () => {
-    const data = readFileSync(`${__dirname}/input.txt`, 'utf8');
-    return data.split('\n')
-}
+  return Math.max(...aggregatedData);
+};
 
-const Task1 = () => {
-    const data = readInput();
-    const aggregatedData = [0]
-    let idx = 0
-    data.forEach((line) => {
-        if (line === '') {
-            idx++;
-            aggregatedData[idx] = 0;
-            return;
-        }
+const Task2 = (input: string[]) => {
+  const aggregatedData = [0];
+  let idx = 0;
+  input.forEach((line) => {
+    if (line === "") {
+      idx++;
+      aggregatedData[idx] = 0;
+      return;
+    }
 
-        aggregatedData[idx] += parseInt(line);
-    })
+    aggregatedData[idx] += parseInt(line);
+  });
 
-    return Math.max(...aggregatedData);
-}
+  const sortedData = aggregatedData.sort().reverse();
+  return sortedData[0] + sortedData[1] + sortedData[2];
+};
 
-const Task2 = () => {
-    const data = readInput();
-    const aggregatedData = [0]
-    let idx = 0
-    data.forEach((line) => {
-        if (line === '') {
-            idx++;
-            aggregatedData[idx] = 0;
-            return;
-        }
-
-        aggregatedData[idx] += parseInt(line);
-    })
-
-    const sortedData = aggregatedData.sort().reverse();
-    return sortedData[0] + sortedData[1] + sortedData[2];
-    
-}
-
-
-
-export {Task1, Task2}
-
+export { Task1, Task2 };

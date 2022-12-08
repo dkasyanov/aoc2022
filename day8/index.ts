@@ -1,16 +1,7 @@
-import { readFileSync } from "fs";
-
-const readInput = () => {
-  const data = readFileSync(`${__dirname}/input.txt`, "utf8");
-  return data.split("\n");
-};
-
-const Task1 = () => {
+const Task1 = (input: string[]) => {
   let visible = 0;
 
-  const rows = readInput().map((line) =>
-    line.split("").map((x) => parseInt(x))
-  );
+  const rows = input.map((line) => line.split("").map((x) => parseInt(x)));
   const columns = rows[0].map((_, idx) => rows.map((row) => row[idx]));
   const frame = (rows.length + rows[0].length - 2) * 2;
 
@@ -30,10 +21,8 @@ const Task1 = () => {
   return visible + frame;
 };
 
-const Task2 = () => {
-  const rows = readInput().map((line) =>
-    line.split("").map((x) => parseInt(x))
-  );
+const Task2 = (input: string[]) => {
+  const rows = input.map((line) => line.split("").map((x) => parseInt(x)));
   const columns = rows[0].map((_, idx) => rows.map((row) => row[idx]));
   let maxScore = 0;
 

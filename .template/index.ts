@@ -1,16 +1,9 @@
-import { readFileSync } from 'fs';
+const Task1 = (input: string[]) => {
+    
+};
 
-const readInput = () => {
-    const data = readFileSync(`${__dirname}/input.txt`, 'utf8');
-    return data.split('\n')
-}
+const Task2 = (input: string[]) => {
 
-const Task1 = () => {
+};
 
-}
-
-const Task2 = () => {
-
-}
-
-export { Task1, Task2 }
+export { Task1, Task2 };

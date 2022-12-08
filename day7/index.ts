@@ -1,10 +1,3 @@
-import { readFileSync } from "fs";
-
-const readInput = () => {
-  const data = readFileSync(`${__dirname}/input.txt`, "utf8");
-  return data.split("$ ").map((s) => s.trim());
-};
-
 type FsNode = {
   isDir: boolean;
   children: Map<string, FsNode> | null;
@@ -79,19 +72,29 @@ const getDirSizes = (dir: FsNode, sizes: Map<string, number>) => {
   return size;
 };
 
-const Task1 = () => {
-  const input = parseInput(readInput());
+const Task1 = (input: string[]) => {
+  const parsedinput = parseInput(
+    input
+      .join("\n")
+      .split("$ ")
+      .map((s) => s.trim())
+  );
   const sizes = new Map();
-  getDirSizes(input, sizes);
+  getDirSizes(parsedinput, sizes);
   return Array.from(sizes.values())
     .filter((s) => s < 100000)
     .reduce((a, c) => a + c);
 };
 
-const Task2 = () => {
-  const input = parseInput(readInput());
+const Task2 = (input: string[]) => {
+  const parsedinput = parseInput(
+    input
+      .join("\n")
+      .split("$ ")
+      .map((s) => s.trim())
+  );
   const sizes = new Map();
-  getDirSizes(input, sizes);
+  getDirSizes(parsedinput, sizes);
 
   const totalSize = sizes.get("/");
   const requiredFreeSpace = 30000000;
