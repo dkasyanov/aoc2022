@@ -1,4 +1,3 @@
-import { Console } from "console";
 import { readFileSync } from "fs";
 
 const readInput = () => {
@@ -8,115 +7,74 @@ const readInput = () => {
 
 const Task1 = () => {
   let visible = 0;
-  const data = readInput().map((line) =>
+
+  const rows = readInput().map((line) =>
     line.split("").map((x) => parseInt(x))
   );
-  for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[0].length; j++) {
+  const columns = rows[0].map((_, idx) => rows.map((row) => row[idx]));
+  const frame = (rows.length + rows[0].length - 2) * 2;
+
+  for (let i = 1; i < rows.length - 1; i++) {
+    for (let j = 1; j < columns.length - 1; j++) {
       if (
-        i === 0 ||
-        j === 0 ||
-        i === data.length - 1 ||
-        j === data[0].length - 1
+        Math.max(...rows[i].slice(0, j)) < rows[i][j] ||
+        Math.max(...rows[i].slice(j + 1, rows[i].length)) < rows[i][j] ||
+        Math.max(...columns[j].slice(0, i)) < rows[i][j] ||
+        Math.max(...columns[j].slice(i + 1, columns[j].length)) < rows[i][j]
       ) {
         visible++;
-        continue;
-      }
-
-      if (Math.max(...data[i].slice(0, j)) < data[i][j]) {
-        visible++;
-        // console.log("left", { i, j, v: data[i][j] });
-        continue;
-      }
-
-      if (Math.max(...data[i].slice(j + 1, data[i].length)) < data[i][j]) {
-        visible++;
-        // console.log("right", { i, j, v: data[i][j] });
-        continue;
-      }
-
-      let top = [];
-      let bottom = [];
-      for (let x = 0; x < data.length; x++) {
-        if (x < i) {
-          top.push(data[x][j]);
-        } else if (x > i) {
-          bottom.push(data[x][j]);
-        }
-      }
-
-      if (Math.max(...top) < data[i][j]) {
-        visible++;
-        // console.log("top", { i, j, v: data[i][j] });
-        continue;
-      }
-
-      if (Math.max(...bottom) < data[i][j]) {
-        visible++;
-        // console.log("bottom", { i, j, v: data[i][j] });
-        continue;
       }
     }
   }
 
-  return visible;
+  return visible + frame;
 };
 
 const Task2 = () => {
-  const data = readInput().map((line) =>
+  const rows = readInput().map((line) =>
     line.split("").map((x) => parseInt(x))
   );
+  const columns = rows[0].map((_, idx) => rows.map((row) => row[idx]));
   let maxScore = 0;
 
-  for (let i = 1; i < data.length - 1; i++) {
-    for (let j = 1; j < data[0].length - 1; j++) {
-      const curr = data[i][j];
+  for (let i = 1; i < rows.length - 1; i++) {
+    for (let j = 1; j < rows[0].length - 1; j++) {
+      const curr = rows[i][j];
 
       let l = 0,
         r = 0,
         t = 0,
         b = 0;
 
-      for (const x of data[i].slice(0, j).reverse()) {
+      for (const x of rows[i].slice(0, j).reverse()) {
         l++;
         if (x >= curr) {
           break;
         }
       }
 
-      for (const x of data[i].slice(j + 1, data[i].length)) {
+      for (const x of rows[i].slice(j + 1, rows[i].length)) {
         r++;
         if (x >= curr) {
           break;
         }
       }
 
-      let top = [];
-      let bottom = [];
-      for (let x = 0; x < data.length; x++) {
-        if (x < i) {
-          top.push(data[x][j]);
-        } else if (x > i) {
-          bottom.push(data[x][j]);
-        }
-      }
-
-      for (const x of top.reverse()) {
+      for (const x of columns[j].slice(0, i).reverse()) {
         t++;
         if (x >= curr) {
           break;
         }
       }
 
-      for (const x of bottom) {
+      for (const x of columns[j].slice(i + 1, columns[j].length)) {
         b++;
         if (x >= curr) {
           break;
         }
       }
 
-      const score = l * r * t * b;
-      maxScore = Math.max(maxScore, score);
+      maxScore = Math.max(maxScore, l * r * t * b);
     }
   }
 

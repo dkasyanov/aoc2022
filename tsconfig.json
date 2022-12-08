@@ -7,10 +7,11 @@
         "emitDecoratorMetadata": true,
         "moduleResolution": "node",
         "module": "commonjs",
-        "sourceMap": true,
+        "sourceMap": false,
         "outDir": "dist",
         "rootDir": ".",
-        "allowJs": true,
+        "allowJs": false,
+        "alwaysStrict": true,
         "baseUrl": ".",
         "esModuleInterop": true,
         "resolveJsonModule": true
