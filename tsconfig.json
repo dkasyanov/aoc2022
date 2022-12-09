@@ -1,21 +1,21 @@
 {
-    "compilerOptions": {
-        "target": "es2016",
-        "lib": ["es6", "dom", "es2017", "esnext.asynciterable"],
-        "allowSyntheticDefaultImports": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "moduleResolution": "node",
-        "module": "commonjs",
-        "sourceMap": false,
-        "outDir": "dist",
-        "rootDir": ".",
-        "allowJs": false,
-        "alwaysStrict": true,
-        "baseUrl": ".",
-        "esModuleInterop": true,
-        "resolveJsonModule": true
-    },
-    "include": ["./index.ts", "./day*/**/*", "./test/**/*"],
-    "exclude": ["node_modules"]
+	"compilerOptions": {
+		"target": "es2016",
+		"lib": ["es6", "dom", "es2017", "esnext.asynciterable"],
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"moduleResolution": "node",
+		"module": "commonjs",
+		"sourceMap": false,
+		"outDir": "dist",
+		"rootDir": ".",
+		"allowJs": false,
+		"alwaysStrict": true,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"resolveJsonModule": true
+	},
+	"include": ["./index.ts", "./day*/**/*", "./test/**/*"],
+	"exclude": ["node_modules"]
 }

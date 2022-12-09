@@ -1,13 +1,11 @@
-import { readFileSync } from 'fs';
-
 const readInput = (dayNumber: string): string[] => {
-	const data = readFileSync(`./day${dayNumber}/input.txt`, 'utf8');
+	const data = Deno.readTextFileSync(`./day${dayNumber}/input.txt`);
 	return data.split('\n');
 };
 
 const main = async () => {
-	const dayNumber = process.argv[2];
-	const module = await import(`./day${dayNumber}`);
+	const dayNumber = Deno.args[0];
+	const module = await import(`./day${dayNumber}/index.ts`);
 
 	if (module.Task1 !== undefined) {
 		console.log('Task 1: ', module.Task1(readInput(dayNumber)));
