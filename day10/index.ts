@@ -1,29 +1,24 @@
 const Task1 = (input: string[]) => {
-    let sthrenth = 0;
+    let strength = 0;
     let cycle = 1;
     let x = 1;
     const cyclesToProcess = [20, 60, 100, 140, 180, 220];
 
     input.forEach((line) => {
         const [cmd, val] = line.split(' ');
-        if (cmd === 'noop') {
-            cycle++;
-            if (cyclesToProcess.includes(cycle)) {
-                sthrenth += cycle * x;
-            }
-        } else {
-            cycle++;
-            if (cyclesToProcess.includes(cycle)) {
-                sthrenth += cycle * x;
-            }
+        cycle++;
+        if (cyclesToProcess.includes(cycle)) {
+            strength += cycle * x;
+        }
+        if (cmd === 'addx') {
             cycle++;
             x += parseInt(val);
             if (cyclesToProcess.includes(cycle)) {
-                sthrenth += cycle * x;
+                strength += cycle * x;
             }
         }
     })
-    return sthrenth;
+    return strength;
 
 };
 
@@ -31,41 +26,34 @@ const Task2 = (input: string[]) => {
     let spritePosition = 1;
     let cycle = 0;
     let x = 1;
-    let currLine = 0
-    const cyclesToProcess = [40, 80, 120, 160, 200, 240];
-    const result = Array.from({length: 6}, ()=>Array.from({length: 40},() => '.'));
+    let currLine = 0;
+    const step = 40;
+    const result = Array.from({ length: 6 }, () => Array.from({ length: step }, () => '.'));
 
     input.forEach((line) => {
         const [cmd, val] = line.split(' ');
-        if (cmd === 'noop') {
+        cycle++;
+        if ([spritePosition - 1, spritePosition, spritePosition + 1].includes(cycle - (step * currLine) - 1)) {
+            result[currLine][cycle - (step * currLine) - 1] = '#'
+        }
+        if (cycle % step === 0) {
+            currLine++;
+        }
+
+        if (cmd === 'addx') {
             cycle++;
-            if (cycle - (40 * currLine) -1 >= spritePosition -1 && cycle - (40 * currLine)-1 <= spritePosition +1){
-                result[currLine][cycle - (40 * currLine)-1] = '#'
-            }
-            if (cyclesToProcess.includes(cycle)) {
-                currLine++;
-            }
-        } else {
-            cycle++;
-            if (cycle - (40 * currLine) -1 >= spritePosition -1 && cycle - (40 * currLine)-1 <= spritePosition +1){
-                result[currLine][cycle - (40 * currLine)-1] = '#'
-            }
-            if (cyclesToProcess.includes(cycle)) {
-                currLine++;
-            }
-            cycle++;
-            if (cycle - (40 * currLine) -1 >= spritePosition -1 && cycle - (40 * currLine)-1 <= spritePosition +1){
-                result[currLine][cycle - (40 * currLine)-1] = '#'
+            if ([spritePosition - 1, spritePosition, spritePosition + 1].includes(cycle - (step * currLine) - 1)) {
+                result[currLine][cycle - (step * currLine) - 1] = '#'
             }
             x += parseInt(val);
-            if (cyclesToProcess.includes(cycle)) {
+            if (cycle % step === 0) {
                 currLine++
             }
             spritePosition = x
         }
     })
 
-   return result.reduce((a, c) => a + '\n' + c.join(''), '')
+    return result.reduce((a, c) => a + '\n' + c.join(''), '')
 };
 
 export { Task1, Task2 };
