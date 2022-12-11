@@ -77,7 +77,7 @@ const Task1 = (input: string[]) => {
 
 const Task2 = (input: string[]) => {
 	const monkeys = parseInput(input);
-	const superModulo = monkeys.reduce((a,c) => a * c.divisor, 1);
+	const superModulo = monkeys.reduce((a, c) => a * c.divisor, 1);
 
 	for (let round = 0; round < 10000; round++) {
 		monkeys.forEach((monkey, _, arr) => {
