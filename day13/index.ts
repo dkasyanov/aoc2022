@@ -13,83 +13,89 @@ const parseInput = (input: string[]): Data[] => {
 	return data;
 };
 
-const compareArrays = (left: any[], right: any[]): boolean => {
-	console.log("start", { left, right });
-
-	if (right.length === 0 && left.length !== 0) {
-		return false;
+const parseInputWithoutDividers = (input: string[]) => {
+	const data = [];
+	for (let i = 0; i < input.length; i++) {
+		if (input[i] !== '') {
+			data.push(Array.from(JSON.parse(input[i])))
+		}
 	}
+	return data;
+};
 
-	if (left.length === 0 && right.length !== 0) {
-		return true;
-	}
+const compareArrays = (left: any, right: any):  boolean | undefined => {
+	for (let i = 0; i < Math.max(left.length, right.length); i++) {
+		if (typeof left[i] === "undefined" && typeof right[i] !== "undefined") {
+			return true
+		}
 
-	for (let i = 0; i < Math.min(left.length, right.length); i++) {
-		let lItem = left[i];
-		let rItem = right[i];
+		if (typeof left[i] !== "undefined" && typeof right[i] === "undefined") {
+			return false
+		}
 
-		// console.log({ lItem, rItem });
-
-		if (typeof lItem === "number" && typeof rItem === "number") {
-			console.log("numbers", { lItem, rItem });
-			if (rItem < lItem) {
-				return false;
-			}
-
-			if (lItem < rItem) {
+		if (typeof left[i] === "number" && typeof right[i] === "number") {
+			if (left[i] < right[i]) {
 				return true;
 			}
-		} else {
-			console.log("obj", { lItem, rItem });
-			if (typeof lItem === "number" || typeof rItem === "number") {
-				// if (i !== 0) {
-				// 	return false;
-				// }
 
-				if (typeof rItem === "number") {
-					rItem = [rItem];
-				}
-
-				if (typeof lItem === "number") {
-					lItem = [lItem];
-				}
-			}
-            console.log("obj >>>", { lItem, rItem });
-			const res = compareArrays(Array.from(lItem), Array.from(rItem));
-			if (res === false) {
+			if (left[i] > right[i]) {
 				return false;
 			}
 		}
 
-		if (i + 1 === right.length && i + 1 !== left.length) {
-			return false;
+		if (typeof left[i] === "object" && typeof right[i] === "object") {
+			const res = compareArrays(left[i], right[i]);
+			if (res != undefined) {
+				return res
+			}
 		}
 
-		if (i + 1 === left.length && i + 1 !== right.length) {
-			return true;
+		if (typeof left[i] === "number" && typeof right[i] !== "number") {
+			const res = compareArrays([left[i]], right[i]);
+			if (res != undefined) {
+				return res
+			}
 		}
+
+		if (typeof left[i] !== "number" && typeof right[i] === "number") {
+			const res = compareArrays(left[i], [right[i]]);
+			if (res != undefined) {
+				return res
+			}
+		}
+
 	}
-	return true;
 };
 
 const Task1 = (input: string[]) => {
 	const data = parseInput(input);
 
-	return data.map(({ left, right }, idx) => {
-		console.log("--------------");
-		console.log({ left, right });
-		if (left.length > right.length) {
-			// console.log("HERE");
-			return 0;
-		}
+	const r = data.map(({ left, right }, idx) => {
 		return compareArrays(left, right) ? idx + 1 : 0;
 	})
-	//.reduce((a, c) => a + c, 0);
+	return r.reduce((a, c) => a + c, 0);
 
-	// 1274 too low
-	// 1536 wrong
+	// 6420
 };
 
-const Task2 = (input: string[]) => {};
+const Task2 = (input: string[]) => {
+	const data = parseInputWithoutDividers(input);
+	data.push([[2]]);
+	data.push([[6]]);
+
+	data.sort((a, b) => {
+		const res = compareArrays(a, b);
+		if (res === true) {
+			return -1;
+		}
+		if (res === false) {
+			return 1
+		}
+		return 0;
+	});
+
+	const strData = data.map(x => JSON.stringify(x));
+	return (strData.indexOf('[[2]]') + 1) * (strData.indexOf('[[6]]') + 1)
+};
 
 export { Task1, Task2 };
